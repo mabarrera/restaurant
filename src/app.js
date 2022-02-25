@@ -30,7 +30,7 @@ app.use(express.json())
 
 //Routes
 app.use(require('./routes/index.routes'))
-app.use('/registrar-orden', require('./routes/ordenar.routes'))
+app.use('/pedidos', require('./routes/pedidos.routes'))
 
 
 //Publics
@@ -38,7 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 
 //Starting server
-app.listen(app.get('port'), () => {
+const server = app.listen(app.get('port'), () => {
     console.log('server on port ', app.get('port'));
 })
 

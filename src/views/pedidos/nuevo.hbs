@@ -1,0 +1,60 @@
+<div class="page-content">
+    {{> sidebar}}  
+
+    <div class="content">
+        {{> topbar}}
+                    
+        {{> breadcrumbs}}
+    
+        {{> title}}
+
+        <div class="content-wrap">
+            <div class="row">
+                <div class="col-12">
+                    <div class="panel">
+                        <div class="panel-head">
+                            Ingresar datos                                
+                        </div>
+                        <div class="panel-body">
+                            <form role="form" class="row" action="pedidos/nuevo" method="POST" enctype="multipart/form-data">
+                                <div class="col-6">
+                                    <div class="form-group row">
+                                        <div class="col-3 align-items-middle"><label for="Mesa">Mesa número:</label></div> 
+                                        <div class="col-6">
+                                            <select name="mesa" class="form-control select" data-search="true">
+                                                {{#each mesas}}
+                                                <option>{{numero}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group row">
+                                        <div class="col-3 align-items-middle"><label for="color">Platos:</label></div> 
+                                        <div class="col-6">
+                                            <input type="text" class="form-control colorpicker" name="color" id="color" required="">
+                                            <small class="color-light">Color del fondo</small>
+                                        </div>
+                                    </div>                                                                
+                                </div>
+                                
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-rounded btn-filling-info"><i class="fo fo-save"></i> Guardar datos</button>
+                                        </div>                                  
+                                    </div>
+                                </div>                              
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://www.ocean-grid.xyz/version/v2.0.0/js/ocean-select.js"></script>
