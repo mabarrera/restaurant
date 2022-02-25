@@ -29,8 +29,8 @@ app.use(express.json())
 
 
 //Routes
-app.use(require('./routes'))
-app.use('/registrar-orden', require('./routes/ordenes'))
+app.use(require('./routes/index.routes'))
+app.use('/registrar-orden', require('./routes/ordenar.routes'))
 
 
 //Publics

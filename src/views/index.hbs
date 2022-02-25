@@ -1,3 +1,24 @@
-<h5>Welcome</h5>
-
-<a href="registrar-orden">Registrar orden</a>
+<div  class="login-page login-column">
+    <div class="login-image login-fill" style="background-image: url('https://res.cloudinary.com/dhcyxseg7/image/upload/v1631496286/admin/img/wallpaper/medium_6_ael4gk.jpg')"></div>
+    <div class="login-wrapper">
+        <div class="login-content">
+            <div class="login-logo text-center mb-1">
+                <img src="/images/logo.png" class="logo-img" alt="Restarant Cheff food">
+            </div>
+            <div class="login-form">
+                <h5 class="text-center">Bienvenido</h5>
+                <form role="form" class="form-logins" action="registrar-orden" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control bg-hidden" name="usuario" placeholder="Ingresa tu usuario" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" data-form="password" data-fill="false" name="password" placeholder="Ingresa tu contraseña" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-info btn-rounded btn-block">Iniciar Sesión</button>
+                    </div>
+                </form>
+            </div>
+        </div>    
+    </div>
+</div>
