@@ -1,9 +1,14 @@
 const mongoose = require('mongoose')
 const config = require('./config')
 
-const db = async () => {
+const dbConnection = async () => {
     try {
-        await mongoose.connect( config.mongo )
+        await mongoose.connect( config.mongo,{
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            // useCreateIndex: true,
+            // useFindAndModify: false
+        } )
         console.log('BD Connected');
     } catch (err) {
         console.log( err );
@@ -11,4 +16,6 @@ const db = async () => {
     }
 }
 
-module.exports = db
+module.exports = { 
+    dbConnection
+}

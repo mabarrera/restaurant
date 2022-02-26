@@ -1,0 +1,66 @@
+.table-box{
+    width: 80px;
+    height: 80px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.table-box.disponible{
+    background: url(/images/disponible.png) no-repeat center center ;
+    color: #419e6a;
+}
+.table-box.ocupado{
+    background: url(/images/ocupado.png) no-repeat center center ;
+    color: #b6b6b6;
+}
+.table-box.selected, .table-box.disponible:hover{
+    background: url(/images/selected.png) no-repeat center center ;
+    color: #FFFFFF;
+}
+.table-box.disponible,
+.table-box.disponible:hover,
+.table-box.ocupado,
+.table-box.selected{
+    background-size: 100%;
+}
+.categoria-carta{
+    background: url(/images/carta.png) no-repeat left center ;
+}
+.categoria-entradas{
+    background: url(/images/entradas.png) no-repeat left center ;
+}
+.categoria-menu{
+    background: url(/images/menu.png) no-repeat left center ;
+}
+.categoria-bebidas{
+    background: url(/images/bebidas.png) no-repeat left center ;
+}
+.categoria-carta,
+.categoria-entradas,
+.categoria-menu,
+.categoria-bebidas{
+    background-size: auto 100%;
+    padding-left: 64px;
+}
+.categoria-box .list-group .list-item.active,
+.categoria-box .list-group .list-item:hover{
+    background-color: #419E6A;
+    color: #FFFFFF;
+}
+.categoria-elegida .list-group .list-item.active,
+.categoria-elegida .list-group .list-item:hover {
+    background-color: #41ADD1;
+    color: #FFFFFF;
+}
+.categoria-item{
+    display: flex;
+    justify-content: space-between;
+}
+.box-list{
+    max-height: 253px;
+}
+.item-categoria,
+.categoria-item{
+    cursor: pointer;
+}

@@ -15,37 +15,75 @@
                         <div class="panel-head">
                             Ingresar datos                                
                         </div>
-                        <div class="panel-body">
-                            <form role="form" class="row" action="pedidos/nuevo" method="POST" enctype="multipart/form-data">
+                        <div class="panel-body pv-2">
+                            <form action="./nuevo" role="form" class="row" method="post">
+                                <div class="col-3">
+                                    <h5>Seleccionar una mesa</h5>
+                                    <div class="mt-1">
+                                        {{#each mesas}}
+                                            <a href="" class="table-box {{estado}}">{{numero}}</a>
+                                        {{/each}}
+                                    </div>                                   
+                                </div>
                                 <div class="col-6">
-                                    <div class="form-group row">
-                                        <div class="col-3 align-items-middle"><label for="Mesa">Mesa número:</label></div> 
-                                        <div class="col-6">
-                                            <select name="mesa" class="form-control select" data-search="true">
-                                                {{#each mesas}}
-                                                <option>{{numero}}</option>
-                                                {{/each}}
-                                            </select>
+                                    <h5 class="text-bold">Mesa 5</h5>
+                                    <input type="hidden" class="form-control mesa" name="mesa" value="5">
+                                    <table class="table datatable table-grid table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th class="text-center">Cantidad</th>
+                                                <th class="text-center">Importe</th>
+                                                <th class="text-center">Borrar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="content-canasta">
+                                            <tr>
+                                                <td class="text-center" colspan="4">No existen productos</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="form-group mt-1">
+                                        <button type="submit" class="btn btn-rounded btn-filling-info"><i class="fo fo-save"></i> Registrar orden </button>
+                                    </div>
+                                    <div class="mt-1">
+                                        {{> message}}
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="categoria-box mb-2">
+                                        <h5>Categorías</h5>
+                                        <div class="list-group bg-hidden categorias-box">
+                                            <div class="list-item item-categoria active" data-name="carta">
+                                                Platos de la carta
+                                            </div>
+                                            <div class="list-item item-categoria" data-name="entradas">
+                                                Entradas
+                                            </div>
+                                            <div class="list-item item-categoria" data-name="bebidas">
+                                                Bebidas
+                                            </div>
+                                            <div class="list-item item-categoria" data-name="menu">
+                                                Menu
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="categoria-elegida mb-1">
+                                        <h5 class="categoria-carta categoria-title pv-1 text-bold text-capitalize"> platos a la carta</h5>
+                                        <div class="list-group scroll bg-hidden box-productos">
+                                            {{#each carta}}
+                                                <div class="list-item categoria-item" data-index="{{codigo}}">
+                                                    <div class="categoria-option" data-index="{{codigo}}">
+                                                        {{nombre}}<br>{{extras}}
+                                                    </div>
+                                                    <div class="categoria-option" data-index="{{codigo}}">
+                                                        S/. {{precio}}
+                                                    </div>                                            
+                                                </div>
+                                            {{/each}}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <div class="form-group row">
-                                        <div class="col-3 align-items-middle"><label for="color">Platos:</label></div> 
-                                        <div class="col-6">
-                                            <input type="text" class="form-control colorpicker" name="color" id="color" required="">
-                                            <small class="color-light">Color del fondo</small>
-                                        </div>
-                                    </div>                                                                
-                                </div>
-                                
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-rounded btn-filling-info"><i class="fo fo-save"></i> Guardar datos</button>
-                                        </div>                                  
-                                    </div>
-                                </div>                              
                             </form>
                         </div>
                     </div>
@@ -56,5 +94,5 @@
     </div>
 
 </div>
-
-<script src="https://www.ocean-grid.xyz/version/v2.0.0/js/ocean-select.js"></script>
+{{!-- 
+<script src="https://www.ocean-grid.xyz/version/v2.0.0/js/ocean-select.js"></script> --}}
