@@ -20,4 +20,8 @@ router.get('/nuevo', (req,res) => {
 
 router.post('/nuevo', nuevoRegistro)
 
+router.get('/actualizar/:codigo', (req,res) => {
+    res.render('pedidos/actualizar')
+})
+
 module.exports = router

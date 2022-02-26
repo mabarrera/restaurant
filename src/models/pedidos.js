@@ -1,17 +1,13 @@
 const { Schema,model } = require( 'mongoose')
 
 const pedidosSchema = new Schema({
-    mesa: {
-        type: Number,
-        required: [ true, 'La mesa es obligatorio' ]
+    venta: {
+        type: Schema.Types.ObjectId,        
     },
     producto: {
         type: String
     },
     cantidad: {
-        type: Number,
-    },
-    moso: {
         type: Number,
     }
 })

@@ -8,7 +8,6 @@ const mesas = () => {
     mesas.forEach( (mesa,index ) => {
         mesa.addEventListener('click', (e) => {
             const target = e.target
-                console.log( target );
             if( !target.classList.contains('ocupado') ){
                 const siblings = mesa.children
                 for(let sibling of siblings){
@@ -105,7 +104,40 @@ socket.on('canasta', (data) => {
     if( nuevo ){
         canasta.push({ cantidad: 1, importe: producto.precio, ...producto })
     }
+
     generarCanaste( canasta,index )
+    const groups = document.querySelectorAll('.input-group')
+    const importe = document.querySelectorAll('.importe-canasta')
+    const total = document.querySelectorAll('.total-pedido')
+    const items = document.querySelectorAll('.cantidad-items')
+    groups.forEach((group,i) => {
+        group.addEventListener('click', (e) => {
+            const input = group.children[1]
+            const value = input.value
+            const codigo = input.dataset.index
+            
+            for(let item of canasta){
+                if( item.codigo === codigo){
+                    item.cantidad = parseInt(value)
+                    item.importe = item.precio * item.cantidad
+                    importe[i].innerHTML = 'S/. ' + item.importe
+                    total[index].innerHTML = 'S/. ' + totalCanasta(canasta)
+                }                
+            }
+        })
+    })
+
+    const borrar = document.querySelectorAll('.borrar-item')
+    borrar.forEach( item => {
+        item.addEventListener('click', () => {
+            const td = item.parentNode
+            const tr = td.parentNode
+            const codigo = item.dataset.index
+            borrarItem(tr,codigo,canasta)
+            total[index].innerHTML = 'S/. ' + totalCanasta(canasta)
+            items[index].value = canasta.length
+        })
+    })
 })
 
 const addCantidad = ( producto ) => {
@@ -132,6 +164,7 @@ const generarCanaste  = ( canasta,index ) => {
         inputNombre.setAttribute('name','producto')
         inputNombre.setAttribute('class','form-control producto')
         inputNombre.setAttribute('type','hidden')
+        inputNombre.setAttribute('multiple','true')
         inputNombre.value = item.codigo
 
         nombre.append(item.nombre,inputNombre)
@@ -142,18 +175,20 @@ const generarCanaste  = ( canasta,index ) => {
         inputCantidad.setAttribute('class','form-control cantidad')
         inputCantidad.value = item.cantidad
         inputCantidad.dataset.form = 'quantity'
+        inputCantidad.dataset.index = item.codigo
         inputCantidad.setAttribute('min','1')
+        inputCantidad.setAttribute('multiple','true')
         cantidad.append(inputCantidad)
 
         const importe = document.createElement('td')
-        importe.classList.add('text-center')
+        importe.setAttribute('class','text-center importe-canasta')
         importe.append('S/. ',item.importe)
 
         const action = document.createElement('td')
         action.classList.add('text-center')
 
         const btn = document.createElement('div')
-        btn.setAttribute('class','btn btn-filling-danger')
+        btn.setAttribute('class','btn btn-filling-danger borrar-item')
         btn.dataset.index = item.codigo
 
         const icon = document.createElement('i')
@@ -165,13 +200,12 @@ const generarCanaste  = ( canasta,index ) => {
         content.append(tr)
         setQuantity(inputCantidad)
     }
-    totalCanaste(canasta,content)
+    totalBoxCanaste(canasta,content)
 }
 
-const totalCanaste = (canasta,content) => {
+const totalBoxCanaste = (canasta,content) => {
     const tr = document.createElement('tr')
-    let monto = 0
-    canasta.map( item => {monto = monto + parseFloat(item.importe)} )
+    let monto = totalCanasta(canasta)
     
     const title = document.createElement('td')
     title.setAttribute('colspan','2')
@@ -179,11 +213,32 @@ const totalCanaste = (canasta,content) => {
     title.append('Total')
 
     const total = document.createElement('td')
-    total.setAttribute('class','text-right text-bold')
+    total.setAttribute('class','text-right total-pedido text-bold')
     total.append('S/. ', parseFloat(monto).toFixed(2))
 
     const vacio = document.createElement('td')
-
+    const input = document.createElement('input')
+    input.setAttribute('class','form-control cantidad-items')
+    input.setAttribute('name','registros')
+    input.setAttribute('type','hidden')
+    input.value = canasta.length
+    vacio.append(input)
+    
     tr.append(title,total,vacio)
     content.append(tr)
+}
+const borrarItem = (opcion,codigo,canasta) => {    
+    let i = 0
+    for(let item of canasta){
+        if( item.codigo === codigo ){
+            canasta.splice(i,1)
+        }
+        i++
+    }
+    opcion.remove()
+}
+const totalCanasta = ( canasta ) => {
+    let total = 0
+    canasta.map( item => {total = total + parseFloat(item.importe)} )
+    return total
 }
