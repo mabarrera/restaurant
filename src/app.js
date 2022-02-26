@@ -42,6 +42,8 @@ app.use(session({
 //Global variables
 app.use((req,res,next) => {
     app.locals.success = req.flash('success')
+    app.locals.info = req.flash('info')
+    app.locals.warning = req.flash('warning')
     next() 
 })
 
@@ -77,15 +79,6 @@ io.on('connection', (socket) => {
         const codigo = data.producto
         const index = data.index
         const producto = helpers.productos().filter( item => item.codigo === codigo )
-        // helpers.productos().map( item => {
-        //     if(item.codigo === codigo){
-        //         const info = { codigo, categoria: item.categoria, nombre: item.nombre, precio: item.precio }
-        //         console.log( info );
-        //         canasta.push(info)
-        //     }
-        // })
-        
-        
         io.emit('canasta', { producto,index } )
     })
 })

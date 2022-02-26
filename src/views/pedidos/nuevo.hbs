@@ -19,15 +19,15 @@
                             <form action="./nuevo" role="form" class="row" method="post">
                                 <div class="col-3">
                                     <h5>Seleccionar una mesa</h5>
-                                    <div class="mt-1">
+                                    <div class="mt-1 box-mesas">
                                         {{#each mesas}}
-                                            <a href="" class="table-box {{estado}}">{{numero}}</a>
+                                            <div class="table-item {{estado}}">{{numero}}</div>
                                         {{/each}}
                                     </div>                                   
                                 </div>
                                 <div class="col-6">
-                                    <h5 class="text-bold">Mesa 5</h5>
-                                    <input type="hidden" class="form-control mesa" name="mesa" value="5">
+                                    <h5 class="text-bold title-mesa">Mesa ...</h5>
+                                    <input type="hidden" class="form-control numero-mesa" name="mesa" >
                                     <table class="table datatable table-grid table-striped">
                                         <thead>
                                             <tr>

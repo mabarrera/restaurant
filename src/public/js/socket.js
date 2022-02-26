@@ -1,5 +1,29 @@
 const socket = io()
 
+//Seleccionar mesa
+const mesas = () => {
+    const mesas = document.querySelectorAll('.box-mesas')
+    const title = document.querySelectorAll('.title-mesa')
+    const numero = document.querySelectorAll('.numero-mesa')
+    mesas.forEach( (mesa,index ) => {
+        mesa.addEventListener('click', (e) => {
+            const target = e.target
+                console.log( target );
+            if( !target.classList.contains('ocupado') ){
+                const siblings = mesa.children
+                for(let sibling of siblings){
+                    if( sibling.classList.contains('selected') ){
+                        sibling.classList.remove('selected')
+                    }
+                }
+                target.classList.add('selected')
+                numero[index].value = target.innerHTML   
+                title[index].innerHTML = 'Mesa ' + target.innerHTML
+            }
+        })
+    })
+}
+mesas()
 //Seleccionar categorias
 const categorias = () => {
     const categorias = document.querySelectorAll('.categorias-box')

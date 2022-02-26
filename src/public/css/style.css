@@ -1,4 +1,4 @@
-.table-box{
+.table-item{
     width: 80px;
     height: 80px;
     display: inline-flex;
@@ -6,22 +6,23 @@
     align-items: center;
     margin-bottom: 16px;
 }
-.table-box.disponible{
+.table-item.disponible{
+    cursor: pointer;
     background: url(/images/disponible.png) no-repeat center center ;
     color: #419e6a;
 }
-.table-box.ocupado{
+.table-item.ocupado{
     background: url(/images/ocupado.png) no-repeat center center ;
     color: #b6b6b6;
 }
-.table-box.selected, .table-box.disponible:hover{
+.table-item.selected, .table-item.disponible:hover{
     background: url(/images/selected.png) no-repeat center center ;
     color: #FFFFFF;
 }
-.table-box.disponible,
-.table-box.disponible:hover,
-.table-box.ocupado,
-.table-box.selected{
+.table-item.disponible,
+.table-item.disponible:hover,
+.table-item.ocupado,
+.table-item.selected{
     background-size: 100%;
 }
 .categoria-carta{
