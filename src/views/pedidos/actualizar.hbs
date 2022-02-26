@@ -1,1 +1,119 @@
-<h5>actualizar</h5>
+<div class="page-content">
+    {{> sidebar}}  
+
+    <div class="content">
+        {{> topbar}}
+                    
+        {{> breadcrumbs}}
+    
+        {{> title}}
+
+        <div class="content-wrap">
+            <div class="row">
+                <div class="col-12">
+                    <div class="panel">
+                        <div class="panel-head">
+                            Ingresar datos                                
+                        </div>
+                        <div class="panel-body pv-2">
+                            <form action="./nuevo" role="form" class="row" method="post">
+                                <div class="col-3">
+                                    <h5>Seleccionar una mesa</h5>
+                                    <div class="mt-1 box-mesas">
+                                        {{#each mesas}}
+                                            <div class="table-item {{estado}}">{{numero}}</div>
+                                        {{/each}}
+                                    </div>                                   
+                                </div>
+                                <div class="col-6">
+                                    <h5 class="text-bold title-mesa">Mesa {{mesa}}</h5>
+                                    <input type="hidden" class="form-control numero-mesa" name="mesa" value="{{mesa}}">
+                                    <table class="table datatable table-grid table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Producto</th>
+                                                <th class="text-center">Cantidad</th>
+                                                <th class="text-center">Importe</th>
+                                                <th class="text-center">Borrar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="content-canasta">
+                                            {{#if pedidos}}
+                                                {{#each pedidos}}
+                                                {{this}}
+                                                <tr>
+                                                    <td>producto<input name="producto" class="form-control producto" type="text" multiple="true" value="{{this._id}}"></td>
+                                                    <td>
+                                                        <input name="cantidad" class="form-control cantidad" data-form="quantity" data-index="cfp07" min="1" multiple="true" value="{{this.cantidad}}">
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="importe-canasta">S/. {{this.importe}}</div>
+                                                        <input name="importe" class="form-control importe-item" type="hidden" multiple="true" value="{{this.importe}}">
+                                                    </td>
+                                                    <td class="text-center"><div class="btn btn-filling-danger borrar-item" data-index="cfp07"><i class="fo fo-times"></i></div></td>
+                                                </tr>
+                                                {{/each}}    
+                                                <tr>
+                                                    <td colspan="2" class="text-right">Total</td>
+                                                    <td class="text-right total-pedido text-bold">S/. dwwdwdw</td>
+                                                    <td><input class="form-control cantidad-items" name="registros" type="hidden" value="2"></td>
+                                                </tr>     
+                                            {{else}}   
+                                            <tr>
+                                                <td class="text-center" colspan="4">No existen productos</td>
+                                            </tr>                                
+                                            {{/if}}
+                                            
+                                        </tbody>
+                                    </table>
+                                    <div class="form-group mt-1">
+                                        <button type="submit" class="btn btn-rounded btn-filling-info"><i class="fo fo-save"></i> Registrar orden </button>
+                                    </div>
+                                    <div class="mt-1">
+                                        {{> message}}
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="categoria-box mb-2">
+                                        <h5>Categorías</h5>
+                                        <div class="list-group bg-hidden categorias-box">
+                                            <div class="list-item item-categoria active" data-name="carta">
+                                                Platos de la carta
+                                            </div>
+                                            <div class="list-item item-categoria" data-name="entradas">
+                                                Entradas
+                                            </div>
+                                            <div class="list-item item-categoria" data-name="bebidas">
+                                                Bebidas
+                                            </div>
+                                            <div class="list-item item-categoria" data-name="menu">
+                                                Menu
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="categoria-elegida mb-1">
+                                        <h5 class="categoria-carta categoria-title pv-1 text-bold text-capitalize"> platos a la carta</h5>
+                                        <div class="list-group scroll bg-hidden box-productos">
+                                            {{#each carta}}
+                                                <div class="list-item categoria-item" data-index="{{codigo}}">
+                                                    <div class="categoria-option" data-index="{{codigo}}">
+                                                        {{nombre}}<br>{{extras}}
+                                                    </div>
+                                                    <div class="categoria-option" data-index="{{codigo}}">
+                                                        S/. {{precio}}
+                                                    </div>                                            
+                                                </div>
+                                            {{/each}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

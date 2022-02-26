@@ -107,7 +107,8 @@ socket.on('canasta', (data) => {
 
     generarCanaste( canasta,index )
     const groups = document.querySelectorAll('.input-group')
-    const importe = document.querySelectorAll('.importe-canasta')
+    const boxImporte = document.querySelectorAll('.importe-canasta')
+    const importe = document.querySelectorAll('.importe-item')
     const total = document.querySelectorAll('.total-pedido')
     const items = document.querySelectorAll('.cantidad-items')
     groups.forEach((group,i) => {
@@ -120,7 +121,8 @@ socket.on('canasta', (data) => {
                 if( item.codigo === codigo){
                     item.cantidad = parseInt(value)
                     item.importe = item.precio * item.cantidad
-                    importe[i].innerHTML = 'S/. ' + item.importe
+                    boxImporte[i].innerHTML = 'S/. ' + item.importe
+                    importe[i].value = item.importe
                     total[index].innerHTML = 'S/. ' + totalCanasta(canasta)
                 }                
             }
@@ -181,8 +183,20 @@ const generarCanaste  = ( canasta,index ) => {
         cantidad.append(inputCantidad)
 
         const importe = document.createElement('td')
-        importe.setAttribute('class','text-center importe-canasta')
-        importe.append('S/. ',item.importe)
+        importe.setAttribute('class','text-center')
+
+        const itemImporte = document.createElement('div')
+        itemImporte.setAttribute('class','importe-canasta')
+        itemImporte.append('S/. ',item.importe)
+        importe.append(itemImporte)
+
+        const inpImporte = document.createElement('input')
+        inpImporte.setAttribute('name','importe')
+        inpImporte.setAttribute('class','form-control importe-item')
+        inpImporte.setAttribute('type','hidden')
+        inpImporte.setAttribute('multiple','true')
+        inpImporte.value = item.importe
+        importe.append(inpImporte)
 
         const action = document.createElement('td')
         action.classList.add('text-center')

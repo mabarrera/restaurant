@@ -2,21 +2,21 @@ const helpers = {}
 
 helpers.mesas = () => {
     const mesas = [
-        { numero: 1, estado: true},
-        { numero: 2, estado: true},
-        { numero: 3, estado: true},
-        { numero: 4, estado: true},
-        { numero: 5, estado: true},
-        { numero: 6, estado: false},
-        { numero: 7, estado: true},
-        { numero: 8, estado: true},
-        { numero: 9, estado: true},
-        { numero: 10, estado: true},
-        { numero: 11, estado: false},
-        { numero: 12, estado: true},
-        { numero: 13, estado: false},
-        { numero: 14, estado: true},
-        { numero: 15, estado: false},
+        { numero: 1, estado: 'disponible'},
+        { numero: 2, estado: 'disponible'},
+        { numero: 3, estado: 'disponible'},
+        { numero: 4, estado: 'disponible'},
+        { numero: 5, estado: 'disponible'},
+        { numero: 6, estado: 'ocupado'},
+        { numero: 7, estado: 'disponible'},
+        { numero: 8, estado: 'disponible'},
+        { numero: 9, estado: 'disponible'},
+        { numero: 10, estado: 'disponible'},
+        { numero: 11, estado: 'ocupado'},
+        { numero: 12, estado: 'disponible'},
+        { numero: 13, estado: 'ocupado'},
+        { numero: 14, estado: 'disponible'},
+        { numero: 15, estado: 'ocupado'},
 
     ]
     return mesas

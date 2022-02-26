@@ -13,7 +13,7 @@ const nuevoRegistro = async ( req,res ) => {
         
         if( body.registros > 1){
             body.producto.map( async (item,index )=> {
-                const data = { venta: saved._id, producto: body.producto[index], cantidad: body.cantidad[index] }
+                const data = { venta: saved._id, producto: body.producto[index], cantidad: body.cantidad[index], importe: body.importe[index] }
                 const pedido = new Pedido( data )
                 await pedido.save()
             })
