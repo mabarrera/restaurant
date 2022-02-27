@@ -27,17 +27,18 @@
                                     <div class="panel">
                                         <div class="panel-body pv-1">
                                             <div class="row">
-                                                <div class="col-6 pv-0-5">
+                                                <div class="col-6 pv-0-5 flex align-items-center center-horizontal">
+                                                    <h4 class="numero-mesa mesa-{{imagen}} text-bold m-0">{{mesa}}</h4>
                                                     <img src="/images/{{imagen}}.png" alt="Mesa {{mesa}}">
                                                 </div>
                                                 <div class="col-6">
-                                                    <h5 class="text-center mb-0-5">Mesa {{mesa}}</h5>
+                                                    <h5 class="text-center mb-0-5">S/. {{total}}</h5>
                                                     <div class="caption color-light text-center mb-1">Productos: {{cantidad}}</div>
                                                     {{#if pagado}}
                                                         <p class="text-center mb-0">Fecha de pago</p>
                                                         <p class="caption color-light text-center mb-1">{{registro}}</p>
                                                         <p class="text-center mb-0">Hora de pago</p>
-                                                        <p class="caption color-light text-center">05:36</p>
+                                                        <p class="caption color-light text-center m-0">{{hora}}</p>
                                                     {{else}}
                                                         <a href="/pedidos/actualizar/{{_id}}" class="btn btn-block btn-filling-primary mb-1"> Actualizar </a>
                                                         <a href="/pedidos/pagar/{{_id}}" class="btn btn-block btn-filling-success"> Pagar </a>

@@ -7,15 +7,15 @@ const Pedidos = require('../models/pedidos')
 const helpers = require('../lib/helpers')
 
 router.get('/', async (req,res) => {
-    const ventas = await Ventas.find().lean()
-    
+    const ventas = await Ventas.find().lean()    
     const pedidos = ventas.map( item => {
+        item.total = item.total.toFixed(2)
         const imagen = ( item.pagado ) ? 'ocupado' : 'disponible'
         const fecha = new Date(item.fecha)
         const registro = `${fecha.getDate()} / ${fecha.getMonth() + 1} / ${fecha.getFullYear()}`
-        return { imagen,registro,  ...item }
+        const hora = `${fecha.getHours()}:${fecha.getMinutes()}`
+        return { imagen,registro,hora,  ...item }
     })
-    console.log( pedidos );
     
     res.render('pedidos/lista', { pedidos })
 })

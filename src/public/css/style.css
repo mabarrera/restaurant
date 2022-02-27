@@ -65,3 +65,12 @@
 .categoria-item{
     cursor: pointer;
 }
+.numero-mesa{
+    position: absolute;
+}
+.numero-mesa.mesa-disponible{
+    color: #419e6a;
+}
+.numero-mesa.mesa-ocupado{
+    color: #b6b6b6;
+}
