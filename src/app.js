@@ -81,6 +81,20 @@ io.on('connection', (socket) => {
         const producto = helpers.productos().filter( item => item.codigo === codigo )
         io.emit('canasta', { producto,index } )
     })
+
+    socket.on('verificar actualizado', async (data) => {
+        const codigo = data.producto
+        const index = data.index
+        const venta = data.codigo
+
+        const producto = await helpers.actualizarPedidos(venta,codigo)
+        io.emit('canasta', { producto,index } )
+    })
+
+    socket.on('borrar producto', async (data) => {
+        const uid = data.index
+        await helpers.borrarProducto(uid)
+    })
 })
 
 

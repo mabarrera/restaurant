@@ -10,6 +10,9 @@ const pedidosSchema = new Schema({
     cantidad: {
         type: Number,
     },
+    precio:{
+        type: Number
+    },
     importe:{
         type: Number
     }

@@ -15,8 +15,41 @@
                         <div class="panel-head">
                             <a href="pedidos/nuevo" class="btn btn-rounded btn-filling-info"> <i class="fo fo-plus"></i> Nuevo </a>                                
                         </div>
-                        <div class="panel-body">
-                            
+                        <div class="panel-body pv-2">
+                            <div class="row">
+                                <div class="col-6">                         
+                                    {{> message}}
+                                </div>       
+                            </div>
+                            <div class="row">
+                                {{#each pedidos}}
+                                <div class="col-3">            
+                                    <div class="panel">
+                                        <div class="panel-body pv-1">
+                                            <div class="row">
+                                                <div class="col-6 pv-0-5">
+                                                    <img src="/images/{{imagen}}.png" alt="Mesa {{mesa}}">
+                                                </div>
+                                                <div class="col-6">
+                                                    <h5 class="text-center mb-0-5">Mesa {{mesa}}</h5>
+                                                    <div class="caption color-light text-center mb-1">Productos: {{cantidad}}</div>
+                                                    {{#if pagado}}
+                                                        <p class="text-center mb-0">Fecha de pago</p>
+                                                        <p class="caption color-light text-center mb-1">{{registro}}</p>
+                                                        <p class="text-center mb-0">Hora de pago</p>
+                                                        <p class="caption color-light text-center">05:36</p>
+                                                    {{else}}
+                                                        <a href="/pedidos/actualizar/{{_id}}" class="btn btn-block btn-filling-primary mb-1"> Actualizar </a>
+                                                        <a href="/pedidos/pagar/{{_id}}" class="btn btn-block btn-filling-success"> Pagar </a>
+                                                    {{/if}}
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                {{/each}}
+                            </div>
                         </div>
                     </div>
                 </div>

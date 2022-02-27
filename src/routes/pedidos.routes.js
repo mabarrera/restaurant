@@ -1,14 +1,23 @@
 const express = require('express');
-const nuevoRegistro = require('../controllers/pedidos.controllers');
+const { nuevoRegistro, actualizarRegistro, pagarPedido } = require('../controllers/pedidos.controllers');
 const router = express.Router()
 const Ventas = require('../models/ventas')
 const Pedidos = require('../models/pedidos')
 
 const helpers = require('../lib/helpers')
 
-router.get('/', (req,res) => {
-    console.log('lista de pedidos');
-    res.render('pedidos/lista')
+router.get('/', async (req,res) => {
+    const ventas = await Ventas.find().lean()
+    
+    const pedidos = ventas.map( item => {
+        const imagen = ( item.pagado ) ? 'ocupado' : 'disponible'
+        const fecha = new Date(item.fecha)
+        const registro = `${fecha.getDate()} / ${fecha.getMonth() + 1} / ${fecha.getFullYear()}`
+        return { imagen,registro,  ...item }
+    })
+    console.log( pedidos );
+    
+    res.render('pedidos/lista', { pedidos })
 })
 
 router.get('/nuevo', (req,res) => {
@@ -22,21 +31,22 @@ router.post('/nuevo', nuevoRegistro)
 router.get('/actualizar/:codigo', async (req,res) => {
     const uid = req.params.codigo
     
-    const venta = await Ventas.findById( uid )
+    const venta = await Ventas.findById( uid ).lean()
     const mesa = venta.mesa
-    const cantidad = venta.cantidad
-    const importe = venta.importe
     const pedido = venta._id
-    const pedidos = await Pedidos.find({ venta: pedido })
-    console.log( pedidos );
     
     const mesas = helpers.mesas().map( item => {
         const estado = ( item.numero === mesa ) ? 'selected' : item.estado
         return { numero: item.numero, estado }
     })
     const carta = helpers.productos().filter( item => item.categoria === 'carta')
-
-    res.render('pedidos/actualizar', {title:'Actualizar pedido', mesa, cantidad, importe, pedidos, mesas, carta } )
+    const pedidos = await helpers.pedidos( pedido )
+        
+    res.render('pedidos/actualizar', {title:'Actualizar pedido', uid, venta, pedidos, mesas, carta } )
 })
+
+router.post('/actualizar/:codigo', actualizarRegistro)
+
+router.get('/pagar/:codigo',pagarPedido )
 
 module.exports = router

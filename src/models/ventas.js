@@ -8,9 +8,20 @@ const ventasSchema = new Schema({
     cantidad: {
         type: Number,
     },
+    total: {
+        type: Number,
+    },
+    pagado: {
+        type: Boolean, 
+        default: false,       
+    },
     moso: {
         type: Number,
-    }
+    },
+    fecha: { 
+        type: Date,
+        default: Date.now
+    },
 })
 
 const ventas = model ( 'Venta', ventasSchema )

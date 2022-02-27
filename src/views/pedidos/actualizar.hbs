@@ -16,7 +16,7 @@
                             Ingresar datos                                
                         </div>
                         <div class="panel-body pv-2">
-                            <form action="./nuevo" role="form" class="row" method="post">
+                            <form action="./{{uid}}" role="form" class="row" method="post">
                                 <div class="col-3">
                                     <h5>Seleccionar una mesa</h5>
                                     <div class="mt-1 box-mesas">
@@ -26,8 +26,8 @@
                                     </div>                                   
                                 </div>
                                 <div class="col-6">
-                                    <h5 class="text-bold title-mesa">Mesa {{mesa}}</h5>
-                                    <input type="hidden" class="form-control numero-mesa" name="mesa" value="{{mesa}}">
+                                    <h5 class="text-bold title-mesa">Mesa {{venta.mesa}}</h5>
+                                    <input type="hidden" class="form-control numero-mesa" name="mesa" value="{{venta.mesa}}">
                                     <table class="table datatable table-grid table-striped">
                                         <thead>
                                             <tr>
@@ -40,23 +40,26 @@
                                         <tbody class="content-canasta">
                                             {{#if pedidos}}
                                                 {{#each pedidos}}
-                                                {{this}}
                                                 <tr>
-                                                    <td>producto<input name="producto" class="form-control producto" type="text" multiple="true" value="{{this._id}}"></td>
+                                                    <td>{{nombre}}<input name="producto" type="hidden" class="form-control producto" type="text" multiple="true" value="{{uid}}"></td>
                                                     <td>
-                                                        <input name="cantidad" class="form-control cantidad" data-form="quantity" data-index="cfp07" min="1" multiple="true" value="{{this.cantidad}}">
+                                                        <input name="cantidad" class="form-control cantidad" data-form="quantity" data-index="{{uid}}" min="1" multiple="true" value="{{cantidad}}">
                                                     </td>
                                                     <td class="text-center">
-                                                        <div class="importe-canasta">S/. {{this.importe}}</div>
-                                                        <input name="importe" class="form-control importe-item" type="hidden" multiple="true" value="{{this.importe}}">
+                                                        <div class="importe-canasta">S/. {{importe}}</div>
+                                                        <input name="precio" class="form-control precio-item" type="hidden" multiple="true" value="{{precio}}">
+                                                        <input name="importe" class="form-control importe-item" type="hidden" multiple="true" value="{{importe}}">
                                                     </td>
-                                                    <td class="text-center"><div class="btn btn-filling-danger borrar-item" data-index="cfp07"><i class="fo fo-times"></i></div></td>
+                                                    <td class="text-center"><div class="btn btn-filling-danger borrar-item" data-index="{{uid}}"><i class="fo fo-times"></i></div></td>
                                                 </tr>
                                                 {{/each}}    
                                                 <tr>
                                                     <td colspan="2" class="text-right">Total</td>
-                                                    <td class="text-right total-pedido text-bold">S/. dwwdwdw</td>
-                                                    <td><input class="form-control cantidad-items" name="registros" type="hidden" value="2"></td>
+                                                    <td class="text-center">
+                                                        <div class="total-pedido text-bold">S/. {{venta.total}}</div>
+                                                        <input class="form-control total-data" name="total" type="hidden" value="{{venta.total}}">
+                                                    </td>
+                                                    <td><input class="form-control cantidad-items" name="registros" type="hidden" value="{{venta.cantidad}}"></td>
                                                 </tr>     
                                             {{else}}   
                                             <tr>
@@ -67,7 +70,8 @@
                                         </tbody>
                                     </table>
                                     <div class="form-group mt-1">
-                                        <button type="submit" class="btn btn-rounded btn-filling-info"><i class="fo fo-save"></i> Registrar orden </button>
+                                        <button type="submit" class="btn btn-rounded btn-filling-info mr-1"><i class="fo fo-save"></i> Actualizar pedido </button> 
+                                        <a href="./pagar/{{uid}}" class="btn btn-rounded btn-filling-success"><i class="fo fo-save"></i> Pagar pedido </a>
                                     </div>
                                     <div class="mt-1">
                                         {{> message}}
@@ -93,7 +97,7 @@
                                     </div>
                                     <div class="categoria-elegida mb-1">
                                         <h5 class="categoria-carta categoria-title pv-1 text-bold text-capitalize"> platos a la carta</h5>
-                                        <div class="list-group scroll bg-hidden box-productos">
+                                        <div class="list-group scroll bg-hidden box-productos actualizar-box" data-index="{{venta._id}}">
                                             {{#each carta}}
                                                 <div class="list-item categoria-item" data-index="{{codigo}}">
                                                     <div class="categoria-option" data-index="{{codigo}}">
