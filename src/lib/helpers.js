@@ -2,26 +2,37 @@ const Ventas = require('../models/ventas')
 const Pedidos = require('../models/pedidos')
 const helpers = {}
 
-helpers.mesas = () => {
+helpers.mesas = async () => {
     const mesas = [
         { numero: 1, estado: 'disponible'},
         { numero: 2, estado: 'disponible'},
         { numero: 3, estado: 'disponible'},
         { numero: 4, estado: 'disponible'},
         { numero: 5, estado: 'disponible'},
-        { numero: 6, estado: 'ocupado'},
+        { numero: 6, estado: 'disponible'},
         { numero: 7, estado: 'disponible'},
         { numero: 8, estado: 'disponible'},
         { numero: 9, estado: 'disponible'},
         { numero: 10, estado: 'disponible'},
-        { numero: 11, estado: 'ocupado'},
+        { numero: 11, estado: 'disponible'},
         { numero: 12, estado: 'disponible'},
-        { numero: 13, estado: 'ocupado'},
+        { numero: 13, estado: 'disponible'},
         { numero: 14, estado: 'disponible'},
-        { numero: 15, estado: 'ocupado'},
-
+        { numero: 15, estado: 'disponible'},
     ]
-    return mesas
+
+    const ventas = await Ventas.find({ pagado:false })
+    const ocupados = ventas.map( item => item.mesa )
+
+    const disponible = mesas.map( item => {
+        const estado = ( ocupados.includes( item.numero ) ) ? 'ocupado' : 'disponible'
+        return {
+            numero: item.numero,
+            estado
+        }
+    })
+   
+    return disponible
 }
 
 helpers.productos = () => {

@@ -7,7 +7,8 @@ const Pedidos = require('../models/pedidos')
 const helpers = require('../lib/helpers')
 
 router.get('/', async (req,res) => {
-    const ventas = await Ventas.find().lean()    
+    const ventas = await Ventas.find().sort({ fecha: -1 }).lean()
+
     const pedidos = ventas.map( item => {
         item.total = item.total.toFixed(2)
         const imagen = ( item.pagado ) ? 'ocupado' : 'disponible'
@@ -16,13 +17,16 @@ router.get('/', async (req,res) => {
         const hora = `${fecha.getHours()}:${fecha.getMinutes()}`
         return { imagen,registro,hora,  ...item }
     })
+
+    // console.log(ventas);
     
     res.render('pedidos/lista', { pedidos })
 })
 
-router.get('/nuevo', (req,res) => {
-    const mesas = helpers.mesas()
+router.get('/nuevo', async (req,res) => {
+    const mesas = await helpers.mesas()
     const carta = helpers.productos().filter( item => item.categoria === 'carta')
+    
     res.render('pedidos/nuevo', {title:'Registrar pedido', mesas, carta })
 })
 
@@ -35,10 +39,11 @@ router.get('/actualizar/:codigo', async (req,res) => {
     const mesa = venta.mesa
     const pedido = venta._id
     
-    const mesas = helpers.mesas().map( item => {
+    const mesas = await (await helpers.mesas()).map( item => {
         const estado = ( item.numero === mesa ) ? 'selected' : item.estado
         return { numero: item.numero, estado }
     })
+    
     const carta = helpers.productos().filter( item => item.categoria === 'carta')
     const pedidos = await helpers.pedidos( pedido )
         
